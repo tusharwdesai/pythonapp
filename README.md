@@ -1,3 +1,19 @@
+# Microservice Python Application on GCP Kubernetes
+
+## Overview
+This repository contains a **microservice-based Python application** consisting of four main components:
+
+- **Frontend** – User-facing web interface  
+- **Backend** – Python-based API service  
+- **MongoDB** – NoSQL database  
+- **Mongo Express** – Web-based MongoDB admin interface  
+
+All components are **containerized using Docker** and **orchestrated using Kubernetes** in a **Google Cloud Platform (GCP)** environment.
+
+---
+
+## Architecture
+The application follows a microservices architecture where each service runs in its own Docker container and communicates within a Kubernetes cluster.
 
 ---
 
