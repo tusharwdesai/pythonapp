@@ -70,7 +70,7 @@ metadata:
 spec:
   selector:
     app: pythonapp-frontend
-  #type: ClusterIP
+  type: LoadBalancer
   # sessionAffinity: None
   # sessionAffinityConfig:
   #   clientIP:
@@ -80,6 +80,7 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 9000
+  
     # If you set the `spec.type` field to `NodePort` and you want a specific port number,
     # you can specify a value in the `spec.ports[*].nodePort` field.
     # nodePort:       
