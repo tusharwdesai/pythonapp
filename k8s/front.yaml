@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  pythonapp-frontend
+  labels:
+    app:  pythonapp-frontend
+spec:
+  selector:
+    matchLabels:
+      app: pythonapp-frontend
+  replicas: 1
+  strategy:
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+    # type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  pythonapp-frontend
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+      - name:  pythonapp-frontend
+        image:  docker.io/tusharwdesai/pythonapp-frontend:tag
+        # resources:
+        #   requests:
+        #     cpu: 500m
+        #     memory: 120Mi
+         
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 80
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 5
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /_status/healthz
+        #     port: 80
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 2
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   periodSeconds: 10
+        env:
+        - name: BACKEND_URL
+          value: "http://pythonapp-backend.pythonapp.svc.cluster.local"
+        ports:
+        - containerPort:  9000
+      #     name:  pythonapp-frontend
+      #   volumeMounts:
+      #   - name: localtime
+      #     mountPath: /etc/localtime
+      # volumes:
+      #   - name: localtime
+      #     hostPath:
+      #       path: /usr/share/zoneinfo/Asia/Shanghai
+      # restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pythonapp-frontend
+spec:
+  selector:
+    app: pythonapp-frontend
+  #type: ClusterIP
+  # sessionAffinity: None
+  # sessionAffinityConfig:
+  #   clientIP:
+  #     timeoutSeconds: 10800
+  ports:
+  - name: pythonapp-frontend
+    protocol: TCP
+    port: 80
+    targetPort: 9000
+    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
+    # you can specify a value in the `spec.ports[*].nodePort` field.
+    # nodePort:       

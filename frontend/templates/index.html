@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Text</title>
+  <style>
+    body {
+   
+      background: black;
+      color: yellow;
+    }
+   
+  </style>
+</head>
+<body>
+  <div class="container">
+ <h1> Data from MongoDB</h1>
+    <ul>
+      {% for item in data %}
+        <li>{{ item }}</li>
+      {% endfor %}
+
+    <h1> Environment Variables</h1>
+# print values in loop from dictionary
+    <ul>
+      {% for key, value in env.items() %}
+        <li><strong>{{ key }}:</strong> {{ value }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
